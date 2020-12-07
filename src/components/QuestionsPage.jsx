@@ -16,7 +16,17 @@ export default function QuestionsPage(props) {
         <div>
             {questions.map((question) => {
                 return (
-                    <h1>{question.questionText}</h1>
+                    <div> 
+                        <h2>{question.questionText}</h2>
+                        {question.answers.map((answer) => {
+                            return (
+                                <section>
+                                    <input value={answer.answerID} name={question.questionText} type="radio"></input>
+                                    <label>{answer.answerText}</label>
+                                </section>
+                            );
+                        })}
+                    </div>
                 );
             })}
         </div>
