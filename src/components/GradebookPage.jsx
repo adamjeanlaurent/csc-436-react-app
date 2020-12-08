@@ -14,15 +14,19 @@ export default function Gradebook(props) {
     const [grades, updateGrades] = useState([]);
     return(
         <div>
-            <h1>Gradebook</h1>
+            <h1 className ="centerText marginForTitle" style={{textDecorationLine: 'underline'}}>Gradebook✅</h1>
             {grades.map((grade) => {
                 return (
-                    <div key = {uniqid()}>
-                        <h1 key = {uniqid()}>{`Quiz: ${grade.title} | Grade: ${grade.score}%`}</h1>
+                    <div key = {uniqid()} style={{marginTop: '4%'}}>
+                        <h1 className ="centerText" key = {uniqid()}>
+                            <span style={{color: 'green'}} key = {uniqid()}>{`Quiz: ${grade.title}`}</span>
+                            <span> | </span>
+                            <span style={{color: 'purple'}} key = {uniqid()}>{`Grade: ${grade.score}%`}</span>
+                        </h1>
                     </div>
                 );
             })}
-            <button onClick={props.backToQuizPageFunc}>Back To Quizzes Page</button>
+            <button type="button" className="btn btn-primary" style={{textDecorationLine: 'underline', left: '40%', position: 'relative', marginTop: '3%'}} onClick={props.backToQuizPageFunc}>Back To Quizzes Page</button>
         </div>
     );
 }

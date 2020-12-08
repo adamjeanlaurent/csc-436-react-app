@@ -15,14 +15,16 @@ export default function QuizzesPage(props) {
 
     return (
         <div>
-            <h1>Quizzes Page:</h1>
+            <h1 className="centerText marginForTitle">Available Quizzes:🎓</h1>
             {quizzes.map((quiz) => {
                 return (
-                    <div key = {uniqid()}>
-                        <h1 key = {uniqid()}>{`Title: ${quiz.title}`}</h1>
-                        <h2 key = {uniqid()}>{`Number Of Questions: ${quiz.numQuestions}`}</h2>
-                        <h2 key = {uniqid()}>{`Time Limit: ${quiz.timeLimit / 60} Minutes`}</h2>
-                        <button key = {uniqid()} onClick = {async() => await props.goToQuestionsPage(quiz.quizID, quiz.numQuestions)}>Take This Quiz</button>
+                    <div key = {uniqid()} className="card marginForTitle" style={{ width: "18rem" }}>
+                        <div key = {uniqid()} className="card-body">
+                            <h5 key = {uniqid()} className="card-title">{`Title: ${quiz.title}`}</h5>
+                            <h6 key = {uniqid()} className="card-subtitle mb-2 text-muted">{`Number Of Questions: ${quiz.numQuestions}`}</h6>
+                            <p className="card-text">{`Time Limit: ${quiz.timeLimit / 60} Minutes`}</p>
+                            <button key = {uniqid()} type="button" className="btn btn-success" onClick = {async() => await props.goToQuestionsPage(quiz.quizID, quiz.numQuestions)}>Take This Quiz</button>
+                        </div>
                     </div>
                 );
             })}

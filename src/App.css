@@ -1,38 +1,43 @@
-.App {
+/* background color */
+body {
+  background-color: #ffba93;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* center text */
+.centerText {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* center cards on home page */
+.card {
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* margin from title of page */
+.marginFromTop {
+  margin-top: 8%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* margin for title of page */
+.marginForTitle {
+  margin-top: 2%;
 }
 
-.App-link {
-  color: #61dafb;
+/* center login/register form */
+.centerLogin {
+  width: 50%;
+  margin: 0 auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* width 100 */
+.bigWidth {
+  width: 100% !important;
+}
+
+/* god center ? */
+.godCenter {
+    display: flex;
+    justify-content: center;
 }

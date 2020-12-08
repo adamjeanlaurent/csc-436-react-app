@@ -5,6 +5,10 @@ class API {
     
     static async Register(username, password) {
         const options = {method: 'POST'};
+        if(username.length === 0 || password.length === 0) {
+            username = 'empty';
+            password = 'empty';
+        }
         const response = await fetch(`${this.URL}/auth/register/${username}/${password}`, options);
         const data = await response.json();
         return data;
