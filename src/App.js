@@ -6,6 +6,8 @@ import RegisterPage from './components/RegisterPage';
 import QuizzesPage from './components/QuizzesPage';
 import QuestionsPage from './components/QuestionsPage';
 import GradebookPage from './components/GradebookPage';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.css';
 
 function App() {
   const [state, updateState] = useState(
@@ -127,6 +129,7 @@ function App() {
     newState.showGradebookPage = false;
     updateState(newState);
   }
+  
   // pages
   return (
     <div className="App">

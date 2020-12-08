@@ -34,9 +34,10 @@ export default function QuestionsPage(props) {
 
     return (
         <div>
+            <h1 className="centerText marginForTitle" style={{textDecorationLine: 'underline'}}>Goodluck!⏰</h1>
             {questions.map((question) => {
                 return (
-                    <div key = {uniqid()}> 
+                    <div key = {uniqid()} className ="marginForTitle"> 
                         <h2 key = {uniqid()}>{question.questionText}</h2>
                         {question.answers.map((answer) => {
                             return (
@@ -49,7 +50,7 @@ export default function QuestionsPage(props) {
                     </div>
                 );
             })}
-            <button key = {uniqid()} onClick = {getAnswers}>Submit</button>
+            <button key = {uniqid()} onClick = {getAnswers} type="button" className="btn btn-info">Submit</button>
         </div>
 
         
