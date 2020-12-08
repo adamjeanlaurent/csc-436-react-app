@@ -45,9 +45,16 @@ class API {
         return data;
     }
 
-    static async GetScore(studentID, quizID) {
-        const response = await fetch(`${this.URL}/quiz/score/${studentID}/quizID`);
+    static async ScoreQuiz(studentID, quizID) {
+        const options = {method: 'POST'};
+        const response = await fetch(`${this.URL}/quiz/score/${studentID}/${quizID}`, options);
         const data = await response.json();
+        return data;
+    }
+
+    static async GetGradebook(studentID) {
+        const respose = await fetch(`${this.URL}/quiz/gradebook/${studentID}`);
+        const data = await respose.json();
         return data;
     }
 };

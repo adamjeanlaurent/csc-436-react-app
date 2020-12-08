@@ -30,5 +30,7 @@ export default function QuestionsPage(props) {
                 );
             })}
         </div>
+
+        
     );
 }
