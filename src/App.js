@@ -127,7 +127,7 @@ function App() {
     newState.showGradebookPage = false;
     updateState(newState);
   }
-
+  // pages
   return (
     <div className="App">
       {state.showHomePage && <HomePage goToRegisterPage = {navRegisterPage} goToLoginPage = {navLoginPage}/>}
