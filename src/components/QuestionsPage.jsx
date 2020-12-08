@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import uniqid from 'uniqid';
 import API from '../api/API'
 
 export default function QuestionsPage(props) {
@@ -12,23 +13,43 @@ export default function QuestionsPage(props) {
 
     const [questions, updateQuestions] = useState([]);
 
+    function getAnswers() {
+        let answers = [];
+        const radioButtons = document.querySelectorAll('input');
+        for(let radioButton of radioButtons) {
+            if(radioButton.checked) {
+                const answerID = parseInt(radioButton.value);
+                const studentID = props.studentID;
+                const questionID = parseInt(radioButton.getAttribute('question_id'));
+                const obj = {
+                    studentID: studentID,
+                    questionID: questionID,
+                    answerID: answerID
+                };
+                answers.push(obj);
+            }
+        }
+        props.gradeFunc(answers);
+    }
+
     return (
         <div>
             {questions.map((question) => {
                 return (
-                    <div> 
-                        <h2>{question.questionText}</h2>
+                    <div key = {uniqid()}> 
+                        <h2 key = {uniqid()}>{question.questionText}</h2>
                         {question.answers.map((answer) => {
                             return (
-                                <section>
-                                    <input value={answer.answerID} name={question.questionText} type="radio"></input>
-                                    <label>{answer.answerText}</label>
+                                <section key = {uniqid()}>
+                                    <input key = {uniqid()} question_id = {answer.questionID} value={answer.answerID} name={question.questionText} type="radio"></input> 
+                                    <label key = {uniqid()}>{answer.answerText}</label>
                                 </section>
                             );
                         })}
                     </div>
                 );
             })}
+            <button key = {uniqid()} onClick = {getAnswers}>Submit</button>
         </div>
 
         

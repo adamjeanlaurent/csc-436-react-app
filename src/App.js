@@ -5,6 +5,7 @@ import HomePage from './components/HomePage';
 import RegisterPage from './components/RegisterPage';
 import QuizzesPage from './components/QuizzesPage';
 import QuestionsPage from './components/QuestionsPage';
+import GradebookPage from './components/GradebookPage';
 
 function App() {
   const [state, updateState] = useState(
@@ -19,7 +20,8 @@ function App() {
       numberOfQuestions: null,
       showQuizzesPage: false,
       errors: null,
-      showQuestionsPage: false
+      showQuestionsPage: false,
+      showGradebookPage: false
     }
     );
 
@@ -78,12 +80,51 @@ function App() {
   }
 
   // show questions page
-  function navQuestionsPage(quizID, numberOfQuestions) {
+  async function navQuestionsPage(quizID, numberOfQuestions) {
+    // check if they have taken the quiz before
+    // if so send to gradebook page
+    const res = await API.CheckIfStartedQuiz(state.studentID, quizID);
+    if(res.message === 'took already') {
+        // send to gradebook
+        await navGradebook(state.studentID);
+        return;
+    }
+    
+    // send to questions page
     let newState = { ...state }
     newState.showQuizzesPage = false;
     newState.showQuestionsPage = true;
     newState.numberOfQuestions = numberOfQuestions;
     newState.quizID = quizID;
+    updateState(newState);
+  }
+
+  // send to gradebook
+  async function navGradebook() {
+    let newState = { ...state };
+    newState.showQuestionsPage = false;
+    newState.showQuizzesPage = false;
+    newState.showGradebookPage = true;
+    updateState(newState);
+  }
+  
+  // grade quiz
+  async function gradeQuiz(answers) {
+      // insert answers into db
+      await API.AnswerQuizQuestions(answers);
+
+      // score quiz
+      await API.ScoreQuiz(state.studentID, state.quizID);
+
+      // send to gradebook
+      await navGradebook(state.studentID);
+  }
+
+  // nav back to quizzes page from gradebook
+  async function navQuizzesPage() {
+    let newState = { ...state };
+    newState.showQuizzesPage = true;
+    newState.showGradebookPage = false;
     updateState(newState);
   }
 
@@ -93,7 +134,8 @@ function App() {
       {state.showRegisterPage && <RegisterPage registerFunc = {register} errors = {state.errors}/>}
       {state.showLoginPage && <LoginPage loginFunc = {login} errors = {state.errors}/>}
       {state.showQuizzesPage && <QuizzesPage goToQuestionsPage = {navQuestionsPage}/>}
-      {state.showQuestionsPage && <QuestionsPage quizID = {state.quizID} numberOfQuestions = {state.numberOfQuestions}/>}
+      {state.showQuestionsPage && <QuestionsPage gradeFunc = {gradeQuiz} quizID = {state.quizID} numberOfQuestions = {state.numberOfQuestions} studentID = {state.studentID}/>}
+      {state.showGradebookPage && <GradebookPage studentID = {state.studentID} backToQuizPageFunc ={navQuizzesPage}/>}
     </div>
   );
 }
