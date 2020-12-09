@@ -23,7 +23,8 @@ function App() {
       showQuizzesPage: false,
       errors: null,
       showQuestionsPage: false,
-      showGradebookPage: false
+      showGradebookPage: false,
+      timeLimit: 0
     }
     );
 
@@ -82,7 +83,7 @@ function App() {
   }
 
   // show questions page
-  async function navQuestionsPage(quizID, numberOfQuestions) {
+  async function navQuestionsPage(quizID, numberOfQuestions, timeLimit) {
     // check if they have taken the quiz before
     // if so send to gradebook page
     const res = await API.CheckIfStartedQuiz(state.studentID, quizID);
@@ -91,9 +92,9 @@ function App() {
         await navGradebook(state.studentID);
         return;
     }
-    
     // send to questions page
     let newState = { ...state }
+    newState.timeLimit = timeLimit;
     newState.showQuizzesPage = false;
     newState.showQuestionsPage = true;
     newState.numberOfQuestions = numberOfQuestions;
@@ -136,8 +137,8 @@ function App() {
       {state.showHomePage && <HomePage goToRegisterPage = {navRegisterPage} goToLoginPage = {navLoginPage}/>}
       {state.showRegisterPage && <RegisterPage registerFunc = {register} errors = {state.errors}/>}
       {state.showLoginPage && <LoginPage loginFunc = {login} errors = {state.errors}/>}
-      {state.showQuizzesPage && <QuizzesPage goToQuestionsPage = {navQuestionsPage}/>}
-      {state.showQuestionsPage && <QuestionsPage gradeFunc = {gradeQuiz} quizID = {state.quizID} numberOfQuestions = {state.numberOfQuestions} studentID = {state.studentID}/>}
+      {state.showQuizzesPage && <QuizzesPage goToQuestionsPage = {navQuestionsPage} goToGradebook = {navGradebook}/>}
+      {state.showQuestionsPage && <QuestionsPage gradeFunc = {gradeQuiz} quizID = {state.quizID} numberOfQuestions = {state.numberOfQuestions} studentID = {state.studentID} timeLimit = {state.timeLimit}/>}
       {state.showGradebookPage && <GradebookPage studentID = {state.studentID} backToQuizPageFunc ={navQuizzesPage}/>}
     </div>
   );

@@ -9,7 +9,7 @@ export default function LoginPage(props) {
 
   return (
     <div className="marginFromTop">
-      {props.errors ? <div class="alert alert-danger" role="alert">{props.errors}</div> : ""}
+      {props.errors ? <div className="alert alert-danger" role="alert">{props.errors}</div> : ""}
       <h1 className="centerText">Login:🤓</h1>
       <div className="centerLogin">
         <span>username:</span>
@@ -38,6 +38,7 @@ export default function LoginPage(props) {
           Login
         </button>
       </div>
+      <h4 className="centerText" style={{marginTop: '2%'}}>Adam Jean-Laurent @ 2020</h4>
     </div>
   );
 }
