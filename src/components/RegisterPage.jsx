@@ -34,6 +34,8 @@ export default function LoginPage(props) {
           Register
         </button>
       </div>
+      <h4 className="centerText" style={{marginTop: '2%'}}>Adam Jean-Laurent @ 2020</h4>
+
     </div>
   );
 }

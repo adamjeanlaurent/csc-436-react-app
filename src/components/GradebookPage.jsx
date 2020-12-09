@@ -27,6 +27,7 @@ export default function Gradebook(props) {
                 );
             })}
             <button type="button" className="btn btn-primary" style={{textDecorationLine: 'underline', left: '40%', position: 'relative', marginTop: '3%'}} onClick={props.backToQuizPageFunc}>Back To Quizzes Page</button>
+            <h4 className="centerText" style={{marginTop: '2%'}}>Adam Jean-Laurent @ 2020</h4>
         </div>
     );
 }

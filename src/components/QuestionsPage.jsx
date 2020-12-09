@@ -6,14 +6,62 @@ export default function QuestionsPage(props) {
     useEffect(() => {
         async function getQuestions() {
             const results = await API.GetQuestionsForQuiz(props.quizID, props.numberOfQuestions);
+            clearInterval(timer);
             updateQuestions(results);
+            startTimer();
+            timeLeft = props.timeLimit;
         }
         getQuestions();
     }, []);
 
+    let timer;
+    let timeLeft;
+
+    function startTimer() {
+        clearInterval(timer);
+        timer = setInterval(tick, 1000);
+    }
+
+    function tick() {
+        timeLeft--;
+        // stops negative countdown
+        if(timeLeft <= 0) {
+            clearInterval(timer);
+            getAnswers();
+            return;
+        }
+        let stringTime = secondsToTime(timeLeft);
+        let domE = document.getElementById('time');
+        if(domE !== null && domE !== undefined) {
+            domE.textContent = `Time Left: ${stringTime}`;
+        }
+        else {
+            clearInterval(timer);
+            return;
+        }
+    }
+
+    function secondsToTime(sec) {
+        let minutes = parseInt(sec / 60);
+        let seconds = parseInt(sec % 60);
+
+        if(minutes < 10) {
+            minutes = '0' + minutes;
+        }
+
+        if(seconds < 10) {
+            seconds = '0' + seconds;
+        }
+
+        return `${minutes}:${seconds}`;
+    }
+
     const [questions, updateQuestions] = useState([]);
 
+
     function getAnswers() {
+        clearInterval(timer);
+        timer = null;
         let answers = [];
         const radioButtons = document.querySelectorAll('input');
         for(let radioButton of radioButtons) {
@@ -35,6 +83,7 @@ export default function QuestionsPage(props) {
     return (
         <div>
             <h1 className="centerText marginForTitle" style={{textDecorationLine: 'underline'}}>Goodluck!⏰</h1>
+            <h1 id = "time" style={{color: 'red'}}></h1>
             {questions.map((question) => {
                 return (
                     <div key = {uniqid()} className ="marginForTitle"> 
@@ -51,8 +100,7 @@ export default function QuestionsPage(props) {
                 );
             })}
             <button key = {uniqid()} onClick = {getAnswers} type="button" className="btn btn-info">Submit</button>
+            <h4 className="centerText" style={{marginTop: '2%'}}>Adam Jean-Laurent @ 2020</h4>
         </div>
-
-        
     );
 }
