@@ -9,7 +9,13 @@ import GradebookPage from './components/GradebookPage';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
+// main app component
 function App() {
+  // state tracking of entire application
+  // keeps state of 
+  //    - what page to display
+  //    - authentication
+  //    - errors
   const [state, updateState] = useState(
     {
       loggedIn: false,
@@ -32,6 +38,7 @@ function App() {
   async function login(username, password) {  
     const res = await API.Login(username, password);
     if(res.message === 'success') {
+      // successful login
       let newState = { ...state };
       newState.studentID = res.studentID;
       newState.loggedIn = true;
@@ -41,6 +48,7 @@ function App() {
     }
 
     else {
+      // un-successful login
       let newState = { ...state };
       newState.errors = res.message;
       updateState(newState);
@@ -51,6 +59,7 @@ function App() {
   async function register(username, password) {  
     const res = await API.Register(username, password);
     if(res.message === 'success') {
+      // successful registration
       let newState = { ...state };
       newState.studentID = res.studentID;
       newState.loggedIn = true;
@@ -60,6 +69,7 @@ function App() {
     }
 
     else {
+      // un-successful registration
       let newState = { ...state };
       newState.errors = res.message;
       updateState(newState);

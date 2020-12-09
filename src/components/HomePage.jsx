@@ -3,6 +3,7 @@ import React from "react";
 export default function HomePage(props) {
   return (
     <div>
+      {/* title */}
       <h1 className="centerText marginForTitle">Welcome To My CSC 436 Semester Project 😀</h1>
       <h4 className="centerText">
         Login or Register To Test Your Knowledge With Some Quizzes!
@@ -39,6 +40,7 @@ export default function HomePage(props) {
       </div>
       <br />
       <br />
+      {/* footer */}
       <h4 className="centerText" style={{marginTop: '2%'}}>Adam Jean-Laurent @ 2020</h4>
     </div>
   );
